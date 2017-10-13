@@ -1,16 +1,22 @@
 import os
 import sys
-from github import Github
+import datetime
+import github
 
 
 def main(github_organization, github_token):
-    api_client = Github(github_token)
+    api_client = github.Github(github_token)
     repos = api_client.get_organization(github_organization).get_repos()
 
     for repo in repos:
-        if repo.private:
+        # Only inspect private repos and repos that have been updated in the last 60 days.
+        print(repo)
+        print(repo.updated_at)
+        if repo.private and repo.updated_at > datetime.datetime.now() + datetime.timedelta(-60):
+            """
             print(repo)
             print(repo.get_stats_contributors()[0].weeks)
+            """
             # TODO aggregate this so it is useful and actionable
 
 
