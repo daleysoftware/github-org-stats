@@ -33,12 +33,12 @@ overall measure of engineering productivity. These statistics should be used in
 conjunction with other management best practices, and not in isolation.
 
 It may not be wise to share such statistics in a public context with a team, as
-such shsaring might result in gamification of the system and encourage the
+such sharing might result in gamification of the system and encourage the
 wrong behavior amongst the developers.
 
 ## Development
 
-To install dependencies:
+To install dependencies (virtualenv and python3 are required first):
 
     make setup
 
