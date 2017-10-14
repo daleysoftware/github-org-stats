@@ -25,6 +25,17 @@ boilerplate changes on your result.
 
 The output of this tool is data in CSV format.
 
+## Disclaimer
+
+While these statistics can be interesting, IMO, they should be interpreted with
+a grain of salt. Number of commits and LOC are _not_ (again, IMO) an accurate
+overall measure of engineering productivity. These statistics should be used in
+conjunction with other management best practices, and not in isolation.
+
+It may not be wise to share such statistics in a public context with a team, as
+such shsaring might result in gamification of the system and encourage the
+wrong behavior amongst the developers.
+
 ## Development
 
 To install dependencies:
