@@ -4,7 +4,7 @@ import datetime
 import github
 import collections
 
-DEBUG = True
+DEBUG = False
 
 past_days_30 = datetime.datetime.now() + datetime.timedelta(-30)
 past_days_60 = datetime.datetime.now() + datetime.timedelta(-60)
@@ -46,8 +46,8 @@ class Contributor(object):
         result = 0
         for stat in stats:
             commits, additions, deletions = stat.c, stat.a, stat.d
-            # Arbitrarily, value commits at 10 "points" a piece. Code is worth 1 point for 10 lines, capped at 100
-            # points for deletions, 100 for additions each week.
+            # Somewhat arbitrarily, value commits at 10 "points" a piece. Code is worth 1 point for 10 lines, capped at
+            # 100 points for deletions, 100 for additions each week.
             result += 10 * commits + min(100, additions/10) + min(100, deletions/10)
         return int(result)
 
@@ -60,8 +60,6 @@ class Contributor(object):
         debug("Computing last-month score for %s" % self.user)
         stats = self._stats_last_month()
         return Contributor._score(stats)
-
-
 
 
 class ScoreSummary(object):
@@ -83,6 +81,10 @@ class ScoreSummary(object):
 
 
 def main(github_organization, github_token):
+    print("Generating your report.")
+    print("This might take a while depending on the number of repos in your organization.")
+    print("Please wait...")
+
     api_client = github.Github(github_token)
     api_org = api_client.get_organization(github_organization)
     repos = api_org.get_repos()
@@ -114,7 +116,10 @@ def main(github_organization, github_token):
         if this_month != 0 or last_month != 0:
             scores[contributor] = (this_month, last_month)
 
-    print(ScoreSummary(contributors, scores))
+    score_summary = str(ScoreSummary(contributors, scores))
+    print()
+    print("User Name,User ID,User Avatar URL,Score This Month,Score Last Month")
+    print(score_summary)
 
 
 def usage():
