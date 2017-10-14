@@ -50,3 +50,6 @@ To execute the fetching script:
 
 In development you may wish to monitor your rate limiting status with Github.
 This tool should not exhaust your rate limit quota unless run excessively.
+
+See also `./scripts/check-rate-limits.sh` which expects `GITHUB_TOKEN` to be
+set in your environment.
