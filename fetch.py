@@ -15,6 +15,18 @@ def debug(message):
         print("%s %s" % (datetime.datetime.now(), message))
 
 
+org_members_cache = set()
+
+
+def is_in_org(api_org, author):
+
+    if len(org_members_cache) == 0:
+        for member in api_org.get_members():
+            org_members_cache.add(member.login)
+
+    return author.login in org_members_cache
+
+
 class Contributor(object):
     def __init__(self):
         self.stats = []
@@ -50,6 +62,8 @@ class Contributor(object):
         return Contributor._score(stats)
 
 
+
+
 class ScoreSummary(object):
     def __init__(self, contributors, scores):
         self.contributors = contributors
@@ -70,7 +84,8 @@ class ScoreSummary(object):
 
 def main(github_organization, github_token):
     api_client = github.Github(github_token)
-    repos = api_client.get_organization(github_organization).get_repos()
+    api_org = api_client.get_organization(github_organization)
+    repos = api_org.get_repos()
 
     contributors = collections.defaultdict(Contributor)
 
@@ -84,6 +99,9 @@ def main(github_organization, github_token):
             if stats_contributors is not None:
                 for stats_contributor in stats_contributors:
                     debug("Logging stats for contributor %s" % stats_contributor.author)
+
+                    if not is_in_org(api_org, stats_contributor.author):
+                        continue
 
                     contributors[stats_contributor.author.id].user = stats_contributor.author
                     contributors[stats_contributor.author.id].stats.extend(stats_contributor.weeks)
