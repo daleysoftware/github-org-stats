@@ -1,17 +1,17 @@
 # Github Org Stats
 
-Generate useful and actionable statistics for your Github organization.
+Generate interesting leaderboard statistics from your Github Organization.
 
 ## Overview
 
 This tool will generate a leaderboard report for your Github organization.
 The leaderboard report contains the following fields:
 
-    - User name (first & last)
-    - User ID
-    - User Avatar URL
-    - Score This Month (last 30 days)
-    - Score Last Month (the 30 days prior)
+- User name (first & last)
+- User ID
+- User Avatar URL
+- Score This Month (last 30 days)
+- Score Last Month (the 30 days prior)
 
 The _Score_ is computed as follows. Each commit is given a value of 10 points.
 10 lines of code is worth 1 point, with a cap of 100 points per week in a given
