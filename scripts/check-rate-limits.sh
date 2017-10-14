@@ -1,3 +1,5 @@
+#!/bin/bash
+
 remaining=$(curl --silent -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/rate_limit \
     | jq  '.resources.core.remaining')
 
@@ -8,4 +10,9 @@ reset=$(curl --silent -H "Authorization: token $GITHUB_TOKEN" https://api.github
     | jq  '.resources.core.reset')
 
 echo $remaining/$limit
-echo Reset @ $(date -d @${reset} +"%r")
+if [ "$(uname -s)" = "Darwin" ]
+then
+    echo Reset @ $(date -r ${reset} +"%r")
+else
+    echo Reset @ $(date -d @${reset} +"%r")
+fi
