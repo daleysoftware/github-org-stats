@@ -46,8 +46,8 @@ class Contributor(object):
         result = 0
         for stat in stats:
             commits, additions, deletions = stat.c, stat.a, stat.d
-            # Somewhat arbitrarily, value commits at 10 "points" a piece. Code is worth 1 point for 10 lines, capped at
-            # 100 points for deletions, 100 for additions each week.
+            # Somewhat arbitrarily, value commits at 10 "points" a piece. Code is worth 1 point for
+            # 10 lines, capped at 100 points for deletions, 100 for additions each week.
             result += 10 * commits + min(100, additions/10) + min(100, deletions/10)
         return int(result)
 
@@ -77,7 +77,8 @@ class ScoreSummary(object):
                            self.contributors[contributor_id].user.avatar_url,
                            score_this_month, score_last_month))
 
-        return '\n'.join([','.join(str(y) for y in x) for x in sorted(result, reverse=True, key=lambda t: t[3])])
+        return '\n'.join([','.join(str(y) for y in x) for x in sorted(result, reverse=True,
+                                                                      key=lambda t: t[3])])
 
 
 def main(github_organization, github_token):
