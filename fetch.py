@@ -48,7 +48,7 @@ class Contributor(object):
             commits, additions, deletions = stat.c, stat.a, stat.d
             # Somewhat arbitrarily, value commits at 10 "points" a piece. Code is worth 1 point for
             # 10 lines, capped at 100 points for deletions, 100 for additions each week.
-            result += 10 * commits + min(100, additions/10) + min(100, deletions/10)
+            result += 10 * commits + min(100, int(additions/10)) + min(100, int(deletions/10))
         return int(result)
 
     def score_this_month(self):
